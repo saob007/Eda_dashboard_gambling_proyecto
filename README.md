@@ -10,7 +10,7 @@ El análisis permitió evidenciar que en el año 2023 se redujeron las diferenci
 
 ## Entendimiento de la problemática del negocio
 
-La Superintendencia Financiera de Colombia (Superfinanciera), que opera como ente máximo regulador de las entidades del sistema financiero colombiano, comparte datos sobre las FIC y su rentabilidad periódica a corto, mediano y largo plazo, de manera pública, desde enero de 2016. Esta información que hace parte del proyecto de datos abiertos nacionales para la transparencia y generación de conocimiento, es la base fundamental del presente proyecto en el que se busca entender la dinámica operativa de los fondos y la incidencia de las estrategias de los inversionistas en la generación de rentabilidad en todos los periodos mensuales del año 2024, con intención de construir un modelo predictivo que permita un acercamiento a las rentabilidades esperadas del primer mes del año 2025. 
+El objetivo del negocio es discernir sobre las características propias del usuario activo en los juegos de apuestas y el usuario pasivo que requieren de estímulos adicionales, con base en sus patrones de depósitos en el tiempo, y cuál es el impacto de las unidades de publicidad y atracción de clientes (traffickers) sobre el número de jugadores activos. En este sentido, se pone a disposición del analista, registros de información de los jugadores, depósitos, traffickers e indicadores internos de comportamientos esperados que permita estudiar la muestra poblacional de usuarios que realizaron su primer depósito (First Time Deposited - FTD) y aquellos cuyo costo de atracción (Cost Per Acquisition - CPA) ya se ha amortizado por haber realizado depositos totales por un valor superior a $ 100 USD. 
 
 ## Entendimiento de los datos
 
