@@ -14,56 +14,65 @@ El objetivo del negocio es discernir sobre las características propias del usua
 
 ## Entendimiento de los datos
 
-El conjunto de datos aportados por la Superfinanciera está comprendido por 2,293,315 registros y 26 campos, de los cuales se extrajo solamente 342,565 registros que comprenden todo el histórico del año 2024. Las características o variables incluyen información sobre la fecha exacta de la operación diaria, el tipo y nombre de la empresa que administra el FIC, el tipo y nombre legal del patrimonio común, el compartimento usado en la operación del fondo, el tipo de participación de los inversores, el número de inversores, los valores de precierre y cierre del fondo diario, los rendimientos abonados, el numero de unidades operativas en el fondo, el valor de los aportes recibidos por los inversores, el valor de los retiros, redenciones y anulaciones; y la rentabilidad diaria, mensual, semestral y anual de los fondos.
-Los gráficos a continuación muestran la distribución de los registros y la evolución de la rentabilidad promedio según cada periodo mensual del año 2024.
+La base de datos esta compuesta de cuatro tablas que contienen segmentadamente información de los jugadores como ID, nombre, país y fecha de registro. Los depósitos de los jugadores, incluyendo el monto del depósito y la fecha. Los datos de adquisición de jugadores, incluyendo el costo de adquisición por jugador, el nombre del trafficker, y la fecha de registro. Y los registros mensuales de la cantidad de FTD y CPA que ha pronosticado la empresa. La segmentación tabular esta dada por:
+- 300 registros detallados de usuarios (jugadores únicos).
+- 600 registros detallados de transacciones en depósito.
+- 300 registros detallados de unidades de atracción de clientes (traffickers) y sus costos asociados.
+- 24 registros de las medidas FTD y CPA pronosticadas para el año 2022 y 2023.
 
-**Figura 1. Distribución de los registros por mes del año 2024**
+Los gráficos a continuación muestran la distribución de la cantidad de depósitos por periodo mensual, y la evolución del valor del depósito en cada periodo mensual del año 2022 y 2023.
+
+**Figura 1. Distribución de la cantidad de depósitos registrados**
 <p align="center">
-    <img src="assets/img/img1.png" alt="Distribución de los registros" width="700">
+    <img src="assets/img/img5.png" alt="Distribución de los depósitos" width="700">
 </p>
-La cantidad de operaciones registradas se mantiene relativamente estable a lo largo de los meses, lo que indica que no existen fluctuaciones significativas en la actividad mensual. Esto sugiere una operación constante en los FIC durante todo el año.
+Se observa un crecimiento constante en la cantidad de depósitos mes a mes desde enero de 2022 hasta diciembre de 2023. Esto sugiere que la empresa ha estado adquiriendo más clientes y/o aumentando la confianza de los jugadores para invertir en las apuestas en línea, con el tiempo. Durante los primeros meses de 2022, el número de depósitos es relativamente bajo (entre 1 y 6 depósitos por mes). Esto es esperable ya que el negocio se encontraba en su fase de crecimiento inicial.
 
 ####
 
-**Figura 2. Evolución de la rentabilidad prommedio mensual 2024**
+**Figura 2. Evolución del valor total del depósito mensual**
 <p align="center">
-    <img src="assets/img/img2.png" alt="Evolución de la rentabilidad promedio mensual" width="700">
+    <img src="assets/img/img1.png" alt="Evolución del fondeo por depósitos" width="700">
 </p>
-Enero mostró la rentabilidad más alta, alcanzando un valor cercano al 11%. Sin embargo, esta cayó rápidamente durante los primeros meses. En abril, la rentabilidad promedio llegó a su punto más bajo, con valores alrededor del 6%. Entre mayo y agosto, se observó una tendencia al alza, alcanzando un segundo pico en agosto. Desde septiembre, la rentabilidad mostró una caída sostenida, terminando en diciembre con valores bajos similares a los observados en abril.
+Los depositos siguen un patrón de crecimiento en el tiempo, aunque no es sistemáticamente consecutivo periodo a periodo, el crecimiento se da en el corto tiempo. Los últimos 4 meses analizados es donde mayor crecimiento en el valor de los depósitovs ha experimentado la empresa. Así mismo, durante el año 2022 el crecimiento fue significativamente menor al que experimentó el año 2023 en los depósitos.
 
 ####
 
-***NOTA:*** Como parte de la preparación para modelado de los datos, se eliminaron columnas innecesarias, se verificaron valores nulos y registros duplicados, se gestionaron valores atípicos y se realizó un formateo de algunas variables al tipo de dato correcto.
+***NOTA:*** Como parte del modelado dimensional de los datos, se requirió eliminar columnas innecesarias, verificar valores nulos y registros duplicados, gestionar valores atípicos y realizar un formateo de algunas variables al tipo de dato correcto.
 
-## Modelado y Evaluación
+## Resultados cláves del análisis
 
-Con base en el análisis exploratorio de datos y el estudio de las correlaciones entre variables, se formuló antes del modelado analítico, el supuesto inicial de baja predictibilidad de las características operativas de los fondos sobre su rentabilidad mensual. El gráfico de calor a continuación, muestra la importancia de las características del modelo Random Forest.
+Es importante analizar como se distribuyen las discrepancias halladas entre los valores de FTD y CPA esperado, con los observados. Para entender mejor cómo ocurre este comportamiento de las métricas se utilizó un gráfico de barras apiladas para entender el comportamiento de las discrepancias en unidades a lo largo de todos los periodos. A continuación, se muestra el gráfico en la Figura 3.
 
-**Figura 3. Correlación de las variables**
+**Figura 3. Distribución de las discrepancias entre valores esperados de FTD y CPA, y los observados**
 <p align="center">
-    <img src="assets/img/img4.png" alt="Importancia de las características" width="700">
+    <img src="assets/img/img3.png" alt="Distirbución de las discrepancias" width="700">
 </p>
 
-A pesar de haber identificada la poca existencia de correlaciones entre la rentabilidad mensual y las variables predictoras, se demostró que la hipótesis de que ningun modelo podría ajustarse correctamente a los datos para realizar predicciones aceptables, era parcialmente incorrecta una vez se probaron los algortimos de modelado. Aunque las variables operativas tengan muy baja correlación individual con la rentabilidad mensual de los FIC, el modelo de Random Forest logró modelar relaciones complejas entre estas variables y el objetivo. Esto sugiere que hay información útil en las variables, aunque no sea obvia con modelos simples como los de regresión lineal.
+Todos los valores observados fueron menos de lo que se esperaba. Esto ocurre tanto para el FTD como el CPA, siendo la discrepancia en unidades de FTD significativamente mayor que las de CPA en la mayoría de los periodos. Las menores discrepancias por unidades ocurrieron en el periodo 2023-11, 2023-05 y 2023-09. Las mayores discrepancias por unidades ocurrieron en el periodo 2022-06, 2022-12, 2022-04, 2022-05 y 2023-04. La tendencia de las discrepancias es a ser menor con el paso del tiempo.
 
-Se seleccionó un modelo de bosques aleatorios (Random Forest) como opción ganadora, el cual se encuentra compuesto por 100 árboles de decisión para determinar el peso de incidencia de cada carcaterística operativa sobre la rentabilidad mensual de los FIC. El gráfico a continuación muestra que el valor unitario de las operaciones de inversión (valor_unidad_operaciones), el valor del cierre diario del fondo (valor_fondo_cierre_dia_t) y la cantidad de proyectos en los que ha participado (numero_proyectos) contityen los dos factores cláves al momento de determinar la rentabilidad mensual, con un peso conjunto de más del 60% de incidencia. 
+Por otra parte, fue fundamental identificar a los mejores clientes (jugadores) para perfilar sus comportamientos de depósitos y proponer estrategias de fidelización basadas en estos casos exitosos. Por esta razón, se analizó el top 10 de jugadores que han realizado los mayores depósitos y se evaluó qué tan significativa es la diferencia de inversión respecto a los demás jugadores. Para esto, se utilizó un gráfico de barras horizontal con el fin de visualizar el ID del jugador vs el total depositado a lo largo del histórico de datos. La Figura 4, muestra el top de 10 de jugadores con mayores depósitos totales realizados.
 
-El gráfico de barras horizontales muestra la importancia de las características del modelo Random Forest.
-
-**Figura 4. Importancia de las variables en el modelo Random Forest**
+**Figura 4. Top 10 de jugadores con mayores depósitos totales**
 <p align="center">
-    <img src="assets/img/img3.png" alt="Importancia de las características" width="700">
+    <img src="assets/img/img4.png" alt="Top 10 jugadores con mayores depósitos totales" width="700">
 </p>
 
-En cuanto al desempeño, el modelo explicó aproximadamente el 84.73% de (R2) la variabilidad de la rentabilidad, indicado que tiene un buen desempeño. Por otro lado, en promedio, las predicciones del modelo tienen un error de ±29.62% de la rentabilidad (MSE = 0.087763 equivalente a RMSE = 0.2962). Aunque el R2 es alto, un error promedio (RMSE) de aproximadamente 29.62% puede ser significativo en el contexto de rentabilidad, ya que podría hacer que las predicciones sean imprecisas en escenarios donde se necesitan estimaciones más ajustadas. Por lo tanto, en fúturos proyectos internos de creación de horizontes financieros no es recomedable la utilización de un modelo analítico basado solamente en variables operativas
+El mayor valor de depósitos realizados asciende a una cifra de $ 2,156 USD. La diferencia entre el jugador con más dinero invertido y el segundo es de aproximadamente $ 309 USD. El top 10 de los jugadores con más depósitos, hechos han fondeado los servicios gambling con más de $ 1,400 USD cada uno. Todos estos hechos revelaron que, de manera generalizada, existen dos perfiles de jugadores diferentes y por consiguiente, es posible desarrollar estrategias para mejorar la atracción y retención de cada uno según los objetivos empresariales.
 
+En cuanto a las asociaciones univariantes entre las características de los datos (variables), se encontró que la cantidad de jugadores con FTD confirmado puede estar estrechamente correlacionada con la cantidad de jugadores que cumplen la condición CPA activa (valor total de depósitos superior a $100 USD). Debido a que sus valores se mueven estrechamente cerca a medida que crece o decrecen periódicamente. Por tanto, se precdió a crear un gráfico de puntos para visualizar dicha relación, tal como se muestra en la Figura 5.
+
+**Figura 5. Correlación entre métricas FTD y CPA**
+<p align="center">
+    <img src="assets/img/img2.png" alt="Correlación entre métricas FTD y CPA" width="700">
+</p>
+
+Los puntos parecen alinearse a lo largo de una tendencia lineal, lo que indica que existe una relación proporcional consistente entre los FTD observados y los CPA observados. Por ejemplo, un porcentaje fijo de los FTD podría estar convirtiéndose en CPA (jugadores de alto valor). Esto es importante de conocer para futuros proyectos de modelación analítica que busque realizar astimaciones confiables, ya que se concluye que estas dos "medidas" pueden ser explicadas a través de una regresión lineal.
 
 ## Conclusión
 
-- Los fondos de inversión colectiva (FIC) de tipo general tienen, por mucho, el mayor número de registros operativos. Este segmento es claramente el más activo dentro del mercado en el año 2024.
--  Los FIC de mercado monetario, inmobiliarios y bursátiles parecen estar infrautilizados o tener una base de clientes más reducida. Esto resulta en una oportunidad para las administradoras que busquen diversificar su oferta o atraer nuevos inversionistas.
--  Las sociedades fiduciarias parecen ofrecer mayor estabilidad y consistencia en los retornos mensuales, lo que podría ser atractivo para inversores conservadores.
--  Los comisionistas de bolsa reflejan un perfil más arriesgado, con mayores posibilidades de obtener altos retornos, pero también con un mayor riesgo de pérdidas significativas.
-- La falta de correlación significativa en el análisis inicial no implicó ausencia de información útil en las variables. Random Forest, al ser un modelo no lineal y basado en árboles, pudo detectar interacciones complejas y patrones no evidentes en los datos.
-- Se realizaron segundas validaciones cruzadas sobre el modelo ganador Random Forest para verificar que el desempeño aceptable sobre los datos de prueba no se debiese a simple azar, se encontró que incluso con 10 subjconjunto de pruebas cruzadas, el modelo siguió desempeñandose muy bien con un R2 medio de 0.847 y un MSE de 0.087 siendo incluiso ligeramente superior al primer modelo Random Forest desarrollado. En este sentido, se confirma que el modelo Random Forest es el que mejor se ajustó correctamente a los datos y se escogió como base para estudiar el peso de las variables predictoras sobre la rentabilidad mensual. No obstante, en futuras investigaciones, se debe analizar un poco más a fondo si puede llegar a existir un sobre ajuste díficil de detectar con solo realizar validaciones cruzadas.
-- En escenarios fúturos de investigación se recomienda utilizar técnicas adicionales como SHAP o LIME para entender cómo las variables más importantes (como valor_unidad_operaciones, valor_fondo_cierre_dia_t) están influyendo en las predicciones. Esto puede dar insights adicionales sobre las relaciones subyacente. Si es posible, añadir más variables operativas o del contexto macroeconómico donde se ven envueltos los FIC para estudiar si es posible mejorar aún más el modelo.
+- Se encontró que el comportamiento general de las discrepancias fue levemente decreciente de un periodo mensual a otro. El año 2023 mantuvo menos discrepancias que el año 2022 a lo largo de todos los meses. Se intuye, en un panorama de contexto aislado, que esto puede ser el resultado de un incremento en la estabilidad de los servicios gambling de la empresa en el mercado que bien puede ser generada mayoritariamente por un aumento de confianza de los jugadores.
+-  El valor de los depósitos experimentó un crecimiento significativo cuando se contrasta individualmente cada mes con periodos anteriores. Se concluye que el año 2022 fue un año de estabilización donde ocurrieron pocos depósitos por parte de los jugadores y en el año 2023 se aprovechó el posicionamiento de los servicios gambling de la empresa en el mercado para conseguir que los jugadores invirtiesen más dinero en ello.
+-  El costo de adquisición de jugadores es bajo en general (menor a 500 USD para empresas pequeñas). Aún así existen algunos periodos donde el costo fue extremadamente alto debido a que la efectividad de las estrategias de marketing no fueron las esperadas. Es importante, ir un poco más allá de los datos proporcionados en este proyecto y encontrar el origen de que esto ocurriese para aprender de ello. NOTA: Se realiza el supuesto de que para una empresa pequeña de desarrollo y oferta de juegos de apuesta, el costo por cliente es bajo cuando la distribución del costo total no supera los 500 USD.
+-  Se identifican dos grupos de jugadores: 1) los considerados “rollers” que invierten mucho dinero en las apuestas y 2) los “casuales” cuya inversión no es tan significativa. Sin embargo, la media de los fondos totales por jugador sugiere que la captación de dinero es interesante. Se recomienda diseñar estrategias de promoción y retención de los juegos según el perfil del usuario. Esto permitirá ser más eficiente en el costo/beneficio de los resultados operativos.
+- Se encontró que la métrica FTD y CPA están muy correlacionadas, de manera directa y proporcional, es decir que cuando una incrementa la otra también lo hace. Se concluye entonces que dirigir esfuerzos a conseguir que todos los jugadores registrados hagan su primer depósito probablemente resultará en un aumento en las contribuciones mayores a 100 USD. Se recomienda investigar más a fondo los factores que influyen en el FTD de los jugadores para implementar estrategias funcionales.
